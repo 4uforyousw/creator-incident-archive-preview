@@ -1,0 +1,47 @@
+name: Bootstrap static preview
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/bootstrap-preview.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout public mirror
+        uses: actions/checkout@v7
+
+      - name: Download validated preview artifact
+        env:
+          ARTIFACT_URL: 'https://sdmntprjapaneast.oaiusercontent.com/files/00000000-1cb4-8209-ad6d-ad727e735bcc/raw?se=2026-09-14T17%3A50%3A32Z&sp=r&sv=2026-02-06&sr=b&scid=76a1e2ed-14cc-5dee-8c61-376742394fa4&skoid=fe2e0858-51c5-47e9-acb7-46ebb9a0f396&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-14T01%3A11%3A26Z&ske=2026-09-15T01%3A11%3A26Z&sks=b&skv=2026-02-06&sig=8qqMWE1SgrgW4rq8KRgR03/8O7Tu/8NLJ0Wg7xcg3Uc%3D'
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 "$ARTIFACT_URL" --output /tmp/preview.zip
+          mkdir -p /tmp/preview
+          unzip -q /tmp/preview.zip -d /tmp/preview
+          test -f /tmp/preview/index.html
+          test -f /tmp/preview/robots.txt
+          grep -q 'noindex,nofollow' /tmp/preview/index.html
+          grep -q 'Disallow: /' /tmp/preview/robots.txt
+
+      - name: Replace mirror contents with static artifact
+        run: |
+          set -euo pipefail
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          cp -a /tmp/preview/. .
+          printf '\n' > .nojekyll
+
+      - name: Commit static preview only
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'deploy: publish validated static preview'
+          git push origin HEAD:main
