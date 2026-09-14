@@ -17,12 +17,10 @@ jobs:
       - name: Checkout public mirror
         uses: actions/checkout@v7
 
-      - name: Download validated preview artifact
-        env:
-          ARTIFACT_URL: 'https://sdmntprjapaneast.oaiusercontent.com/files/00000000-1cb4-8209-ad6d-ad727e735bcc/raw?se=2026-09-14T17%3A50%3A32Z&sp=r&sv=2026-02-06&sr=b&scid=76a1e2ed-14cc-5dee-8c61-376742394fa4&skoid=fe2e0858-51c5-47e9-acb7-46ebb9a0f396&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-14T01%3A11%3A26Z&ske=2026-09-15T01%3A11%3A26Z&sks=b&skv=2026-02-06&sig=8qqMWE1SgrgW4rq8KRgR03/8O7Tu/8NLJ0Wg7xcg3Uc%3D'
+      - name: Restore validated preview artifact
         run: |
           set -euo pipefail
-          curl --fail --location --retry 3 "$ARTIFACT_URL" --output /tmp/preview.zip
+          base64 --decode preview.zip.b64 > /tmp/preview.zip
           mkdir -p /tmp/preview
           unzip -q /tmp/preview.zip -d /tmp/preview
           test -f /tmp/preview/index.html
