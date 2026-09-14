@@ -20,7 +20,13 @@ jobs:
       - name: Restore validated preview artifact
         run: |
           set -euo pipefail
-          base64 --decode preview.zip.b64 > /tmp/preview.zip
+          cat \
+            preview.p00a preview.p00b preview.p00c \
+            preview.part01 preview.part02 \
+            preview.p03a preview.p03b preview.p03c \
+            preview.part04 preview.part05 \
+            | base64 --decode > /tmp/preview.zip
+          test "$(sha256sum /tmp/preview.zip | awk '{print $1}')" = "264d9a0f455c4e6722eef76b8711a011d07b528765f690eeeb513639c70ef1e2"
           mkdir -p /tmp/preview
           unzip -q /tmp/preview.zip -d /tmp/preview
           test -f /tmp/preview/index.html
