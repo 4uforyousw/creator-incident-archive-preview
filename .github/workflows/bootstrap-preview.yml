@@ -37,7 +37,8 @@ jobs:
           6fece3297db9954f2534e05dd52b993dacb6f4e9ad505d0b7503fd437a410adb  preview.p041
           942b4690d269c4b5b9d0f8980349380186855273a4a00e7e02c5c503a63d04e8  preview.p042
           a3fcbf73e0c3e6b6315a907d00dfadbde6f592315cb9e8f8a346c3989701f6d8  preview.p0430
-          92de37c76f0368be46df63ea3ff340cadacffa0403e3e1aeb3b3c6ce7aa75954  preview.p0431
+          0fca8080ba19f2e20ce8cd47b4cdb0f1354eb62175e41eceec737dd8ec655f0b  preview.p04310
+          fd281ee1e569bfa95cf4cdcaf0197bb6feb943595bb04a9e1070f22840dced2a  preview.p04311
           3df9d81679faf4802106ef40ecbe72b6d1981ebeed9943c6a572b014843e0035  preview.p0432
           ab39cc692541781979a19c3445aa4329a0b677485688102f7a7819c6d8ab005e  preview.part05
           EOF
@@ -50,7 +51,7 @@ jobs:
             preview.p00a preview.p00b preview.p00c \
             preview.part01 preview.part02 \
             preview.p03a preview.p03b0 preview.p03b10 preview.p03b11 preview.p03b2 preview.p03b3 preview.p03c \
-            preview.p040 preview.p041 preview.p042 preview.p0430 preview.p0431 preview.p0432 preview.part05 \
+            preview.p040 preview.p041 preview.p042 preview.p0430 preview.p04310 preview.p04311 preview.p0432 preview.part05 \
             | base64 --decode > /tmp/preview.zip
           test "$(sha256sum /tmp/preview.zip | awk '{print $1}')" = "264d9a0f455c4e6722eef76b8711a011d07b528765f690eeeb513639c70ef1e2"
           mkdir -p /tmp/preview
