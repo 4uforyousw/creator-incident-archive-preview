@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>配信者騒動録 更新</title>
+    <link>https://4uforyousw.github.io/</link>
+    <description>公開済みの騒動記録に対する新規公開・追記・訂正・状況更新を配信します。</description>
+    <language>ja</language>
+    <atom:link href="https://4uforyousw.github.io/feed.xml" rel="self" type="application/rss+xml" />
+
+  </channel>
+</rss>
