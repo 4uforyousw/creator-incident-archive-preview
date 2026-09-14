@@ -27,9 +27,15 @@ jobs:
           3c72711f2b56a7df3e1aea1650603e4ed01bb703f6d37488cc575fdb1cdeb0df  preview.part01
           f21131df08aa60337a821c03da2091971622e611dbf10e38cab80ddb84682e94  preview.part02
           4b3288f463cdd539cbe700f3b0d738af76c3f25caba218a57e4f27f5c65f34a3  preview.p03a
-          2d90abb9529ca7a6907668ccedb6f2a847b1d8993b293b7378ab9b1a8226d989  preview.p03b
+          d4b24fca7a47c8374c7409af22b6a18a4a810540d4390dffe2e32ec883b4502e  preview.p03b0
+          2e18115beedc5071609022b9e54e71a05ce08f6187e51111601eb8e998ca38b6  preview.p03b1
+          56272b61d417db08dac14df5a8ac1c9bd8394b3c80f443752286fc7fc4b0f378  preview.p03b2
+          ee06ae598a6168d716b42f7b17bcf5a001596fd3989e30363e64696d80330207  preview.p03b3
           c3ef0720e48c85e3590126f3f6ea581634f1dfcdee94322e15d1a21032208202  preview.p03c
-          6800dd8efe1a7618b9491a4e873d3830ae44bd8fb7d004646a630e2c1a26cff6  preview.part04
+          5313f623f08f81d5ef71453b7e076feaa96d34fbb3873f0bd0704c8b249b0c60  preview.p040
+          6fece3297db9954f2534e05dd52b993dacb6f4e9ad505d0b7503fd437a410adb  preview.p041
+          942b4690d269c4b5b9d0f8980349380186855273a4a00e7e02c5c503a63d04e8  preview.p042
+          c27baaca2958bf9006b1390df0cf59e430d73f4004185b1b967f0eae60beec75  preview.p043
           ab39cc692541781979a19c3445aa4329a0b677485688102f7a7819c6d8ab005e  preview.part05
           EOF
           sha256sum -c /tmp/chunks.sha256
@@ -40,8 +46,8 @@ jobs:
           cat \
             preview.p00a preview.p00b preview.p00c \
             preview.part01 preview.part02 \
-            preview.p03a preview.p03b preview.p03c \
-            preview.part04 preview.part05 \
+            preview.p03a preview.p03b0 preview.p03b1 preview.p03b2 preview.p03b3 preview.p03c \
+            preview.p040 preview.p041 preview.p042 preview.p043 preview.part05 \
             | base64 --decode > /tmp/preview.zip
           test "$(sha256sum /tmp/preview.zip | awk '{print $1}')" = "264d9a0f455c4e6722eef76b8711a011d07b528765f690eeeb513639c70ef1e2"
           mkdir -p /tmp/preview
